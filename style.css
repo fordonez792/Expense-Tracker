@@ -1,0 +1,422 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.2rem;
+  background-color: #f9f9f9;
+  overflow: visible;
+}
+.header {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 2rem 0;
+  margin: 10px;
+  color: #222;
+  padding-bottom: 10px;
+}
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  letter-spacing: 0.1rem;
+  width: 100%;
+  padding-bottom: 20px;
+  overflow: visible;
+}
+.input .header2 {
+  margin-bottom: 20px;
+  background-color: #222;
+}
+.input h2 {
+  text-transform: capitalize;
+  text-align: center;
+  width: 90vw;
+  padding: 10px;
+  margin: 5px;
+  color: white;
+}
+/* Modal */
+.modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border: 1px solid #222;
+  z-index: 10;
+  background-color: #f2f2f2;
+  width: 500px;
+  max-width: 80%;
+  transition: 0.5s ease transform;
+}
+.modal.on{
+  transform: translate(-50%, -50%) scale(1);
+}
+.modal table{
+  width: 95%;
+  margin: 10px;
+  font-size: 0.8rem;
+}
+.modal table tr th{
+  padding: 5px 7px;
+  text-align: center;
+}
+.close-modal{
+  padding: 0;
+  margin: 0;
+  object-fit: cover;
+  width: 15px;
+  height: 15px;
+  filter: brightness(0) invert(1);
+}
+.close-modal img{
+  width: 15px;
+  height: 15px;
+  display: block;
+  margin: auto;
+}
+.modal table tr:first-child{
+  background-color: #6CB4EE;
+  color: #fafafa;
+}
+.modal table tr:first-child th:last-child{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(315deg, #000000 0%, #7f8c8d 74%);
+  opacity: 0;
+  z-index: 9;
+  pointer-events: none;
+  transition: 0.5s ease opacity;
+}
+#overlay.on{
+  pointer-events: all;
+  opacity: 0.7;
+}
+/* End of Modal */
+/* Dropdown Menu */
+.dropdown{
+  position: relative;
+  overflow: visible;
+  z-index: 2;
+}
+.dropdown::before{
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #222;
+  border-top: 0;
+  border-right: 0;
+  transform: rotate(-45deg);
+  z-index: 2;
+  right: 20px;
+  top: 33px;
+  transition: 0.5s ease;
+}
+.dropdown .options{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translateY(-15px);
+  opacity: 0;
+  transition: 0.3s ease opacity, 0.5s ease transform;
+  z-index: 2;
+}
+.dropdown.active::before{
+  top: 37px;
+  transform: rotate(-225deg);
+}
+.dropdown.active > .custom-field + .options{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.dropdown .options li{
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: 0.3s ease all;
+}
+.dropdown .options li:hover{
+  background-color: #6CB4EE;
+  color: #f2f2f2;
+}
+.dropdown .options li i{
+  font-size: 0.7rem;
+}
+/* End of Dropdown */
+/* fancy styling for input boxes */
+.custom-field {
+  position: relative;
+  font-size: 14px;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+.custom-field .placeholder {
+  position: absolute;
+  left: 12px;
+  top: calc(50% + 10px);
+  text-transform: capitalize;
+  transform: translateY(-50%);
+  color: #aaa;
+  transition: 0.3s ease all;
+}
+.custom-field .input-box:valid + .placeholder,
+.custom-field .input-box:focus + .placeholder {
+  top: 8px;
+  font-size: 10px;
+  color: #222;
+}
+.input-box {
+  all: unset;
+  background: #f2f2f2;
+  padding: 12px;
+  border-radius: 0px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  width: 300px;
+  background: linear-gradient(90deg, #222, #222) center bottom/0 2px no-repeat,
+    linear-gradient(90deg, #ccc, #ccc) left bottom/100% 2px no-repeat,
+    linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
+  transition: background-size 0.3s ease;
+}
+.input-box:valid,
+.input-box:focus {
+  background-size: 100% 2px, 100% 2px, 100%;
+}
+input[type="date"]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type="date"]:focus::-webkit-datetime-edit {
+  color: black !important;
+}
+/* end of fancy styling for input boxes */
+.btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 324px;
+}
+.add-expense-btn::before{
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #6CB4EE;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: 0.3s ease transform;
+}
+.add-expense-btn:hover::before{
+  transform: scaleX(1);
+}
+.add-expense-btn {
+  position: relative;
+  padding: 12px;
+  min-width: 150px;
+  border-radius: 3px;
+  margin: 20px 0 10px 0;
+  background-color: #f2f2f2;
+  color: #222;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: 0.3s ease color;
+  transform-origin: center;
+}
+.add-expense-btn:hover,
+.add-expense-btn:focus {
+  color: #f2f2f2;
+}
+.output-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 10px;
+}
+table {
+  width: 90vw;
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-transform: capitalize;
+  vertical-align: middle;
+}
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+tr:first-child {
+  background-color: #222;
+  color: white;
+}
+td,
+th {
+  padding: 10px 15px;
+}
+th {
+  text-transform: uppercase;
+}
+.delete-btn {
+  padding: 0;
+  margin: 0;
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  transition: 0.3s ease all;
+}
+.delete-btn img {
+  width: 15px;
+  height: 15px;
+  display: block;
+  margin: auto;
+  transition: 0.3s ease all;
+}
+.delete-btn:hover {
+  background-color: #ff4136;
+}
+.delete-btn:hover img {
+  filter: brightness(0) invert(1);
+}
+.hidden {
+  display: none;
+}
+.last-row {
+  font-weight: 700;
+}
+.info {
+  width: 324px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: initial;
+}
+.info .account-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.info .account-info .icon-container{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+}
+.info .account-info span {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.info .account-info .expense-history{
+  color: #222;
+}
+.info .account-info i {
+  color: #aaa;
+  transition: 0.3s ease color;
+}
+.info .account-info i:hover {
+  color: #222;
+}
+.info h4 {
+  text-align: center;
+  padding: 0.5rem;
+  padding-left: 0;
+  color: #aaa;
+  font-size: 1.3rem;
+  letter-spacing: 0.2rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.info .all {
+  width: 100%;
+  margin: 0.5rem;
+  margin-left: 0;
+}
+.info .first {
+  border-left: 3px solid #0074d9;
+}
+.info .second {
+  border-left: 3px solid #2ecc40;
+}
+.info .third {
+  border-left: 3px solid #ff4136;
+}
+.info div h3 {
+  text-transform: capitalize;
+  text-align: left;
+  letter-spacing: 0.2rem;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.info div h3 .bold {
+  font-weight: 700;
+  color: #222;
+}
+.green {
+  color: #32cd32;
+}
+.blue {
+  color: #0074d9;
+}
+.red {
+  color: #ff4136;
+}
+.shadow {
+  -moz-box-shadow: 0 0 3px #ccc;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 3px #ccc;
+  background-color: white;
+  width: 460px;
+  padding: 20px;
+  margin: 0.7rem;
+  border-radius: 5px;
+  overflow: visible;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.disable-scroll{
+  overflow-y: hidden;
+  position: fixed;
+  height: 100vh;
+  padding: 0 3vw;
+}
