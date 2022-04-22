@@ -68,10 +68,6 @@ body {
 
 /* End of Account Savings and Income Box */
 /* Description */
-.description-container {
-  margin-top: 0;
-}
-  
 @keyframes blink {
   0% {
     width: 0.125em;
@@ -86,14 +82,6 @@ body {
   to {
     left: 100%;
   }
-}
-  
-.input .description {
-  font-family: 'Source Code Pro', monospace;
-  position: relative;
-  width: auto;
-  list-style: none;
-  font-size: 1rem;
 }
   
 #one {
@@ -131,7 +119,8 @@ body {
   left: 0;
   bottom: 0;
   top: 0;
-  position: absolute;}
+  position: absolute;
+}
   
 .input .description::after {
   width: 0;
@@ -139,10 +128,6 @@ body {
   animation:
     type var(--duration) steps(var(--length)) 1s forwards,
     blink 750ms steps(var(--length)) infinite;
-}
-  
-.description-container li {
-  margin: 5px;
 }
   
 .description-container {
@@ -156,11 +141,16 @@ body {
 }
   
 .description-container li {
+  font-family: 'Source Code Pro',
+  monospace;
+  position: relative;
+  width: auto;
+  list-style: none;
+  font-size: 0.7rem;
   align-self: flex-start;
   margin: 5px;
   margin-left: 10px;
   white-space: normal;
-  font-size: 1rem;
 }
   
 .description-container li:first-child {
@@ -883,29 +873,7 @@ footer p span:hover {
 /* End of Footer */
 
 /* Media Queries */
-@media only screen and (aspect-ratio: 16/10){
-  .header h1{
-    font-size: 3.5rem;
-  }
-  .description-container li {
-    font-size: 0.8rem;
-  }
-  footer{
-    height: 100px;
-  }
-  footer h2{
-    font-size: 1.1rem;
-
-  }
-  footer .social-icons .social-item{
-    margin: 5px;
-    width: 30px;
-  }
-  footer p{
-    font-size: 0.8rem;
-  }
-}
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1200px) and (min-height: 750px){
   .header h1 {
     font-size: 4rem;
   }
