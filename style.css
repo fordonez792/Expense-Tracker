@@ -32,9 +32,10 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   position: relative;
-  font-size: 2.7rem;
+  font-size: 2.5rem;
   color: #222;
   text-transform: uppercase;
+  margin-bottom: -10px;
 }
 
 /* End of Title */
@@ -146,7 +147,7 @@ body {
   position: relative;
   width: auto;
   list-style: none;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   align-self: flex-start;
   margin: 5px;
   margin-left: 10px;
@@ -876,6 +877,7 @@ footer p span:hover {
 @media only screen and (min-width: 1200px) and (min-height: 750px){
   .header h1 {
     font-size: 4rem;
+    margin-bottom: 0;
   }
 
   .description-container {
