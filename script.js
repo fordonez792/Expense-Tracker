@@ -1,5 +1,5 @@
-import { addToLocalStorage, getLocalStorage, editLocalStorage, removeFromLocalStorage, log, qs, qsa, createElement, formatCurrency, sanitizeInput, getMonth }  from "./utils.js"
-const schedule=require('node-schedule')
+import { addToLocalStorage, getLocalStorage, editLocalStorage, removeFromLocalStorage, log, qs, qsa, createElement, formatCurrency, sanitizeInput, getMonth, sleep }  from "./utils.js"
+
 // Query selectors for table and input section
 const name=qs('#name')
 const amount=qs('#amount')
@@ -7,22 +7,29 @@ const date=qs('#date')
 const addExpenseBtn=qs('#add-expense-btn')
 const tableContainer=qs('.output-table')
 const options=qs('.options')
+const allBTN=qsa('.add-expense-btn')
 // Query selectors for account information section
 const accountSavings=qs('#account-savings')
 const income=qs('#income')
 const saveBTN=qs('#save-btn')
 const inputContainer=qs('#input')
 const savingsContainer=qs('#savings')
-const showTableBTN=qs('#show-table')
 const accountInfo=qs('.info')
 const editBTN=qs('.edit')
+const paragraphs=qsa('.description')
 //Query Selector Modal
 const openModalButton=qsa('[data-modal-target]')
 const closeModalButton=qsa('[data-close-btn]')
 const overlay=qs('#overlay')
 const body=qs('body')
-const uploadBtn=qs('.upload')
 const historyTable=qs('.display-table')
+// Query Selector Alert
+const negativeAlert=qs('.alert')
+const positiveAlert=qs('.positive-alert')
+const closePositiveAlert=qs('.close-positive-alert')
+const positiveAlertMessage=qs('.positive-msg')
+const closeAlert=qs('.close-alert')
+const alertMessage=qs('.msg')
 
 // Creates table but hides it as there is no data still
 const table=createElement('table', {class: 'hidden'})
@@ -40,8 +47,19 @@ window.addEventListener('DOMContentLoaded', () => {
     let savings=getLocalStorage('savings')
     let income=getLocalStorage('income')
     let expenses=getLocalStorage('expenses')
-
-    if(savings.length<1 && income.length<1)return
+    let history=getLocalStorage('history')
+    // Prevents bug when saving history and then refreshing immediately
+    const temp=localStorage.getItem('income')
+    if(income.length===0 || !temp){
+        inputContainer.classList.add('hidden')
+        savingsContainer.classList.remove('hidden')
+        savings.forEach(item => {
+            accountSavings.value=item.values
+            accountSavings.readOnly=true
+        })
+        return
+    }
+    if(savings.length<1 && income.length<1) return
     inputContainer.classList.remove('hidden')
     savingsContainer.classList.add('hidden')
 
@@ -56,23 +74,48 @@ window.addEventListener('DOMContentLoaded', () => {
     if(expenses.length<1){
         setUpAccountInfo(3, 0, 'expenses')
     }
-
     expenses.forEach(item => {
         setUpAccountInfo(item.id, item.values, 'expenses')
     })
 
-    if(items.length<1)return
-    items.forEach(item => {
-        setUpRow(item.id, item.values)
-    })
+    if(items.length>0){
+        table.classList.remove('hidden')
+        items.forEach(item => {
+            setUpRow(item.id, item.values)
+        })
+    }
+
+    if(history.length>0){
+        savings.forEach(item => {
+            accountSavings.value=item.values
+            accountSavings.readOnly=true
+        })
+        history.forEach(item => {
+            setUpModalRow(item.id, item.values)
+        })
+    }
+
+    const dayInMS=1000 * 60 * 60 * 24
+    if(income.length>=1){
+        setInterval(uploadInfo, dayInMS)
+    }
+    // Reloading every 6 hours ensures everything in app works as expected
+    setInterval(() => {
+        window.location.reload()
+    }, dayInMS/4)
 })
 // Mainly calls functions to set up the account info section and to add all values into local storage if they dont exist already
 saveBTN.addEventListener('click', () => {
     let accountSavingsValue=accountSavings.value
     let incomeValue=income.value
+    if(!incomeValue){
+        myAlert("Income can't be 0!", negativeAlert)
+        return
+    }
     // Prevent XSS attack through input
     accountSavingsValue=sanitizeInput(accountSavingsValue)
     incomeValue=sanitizeInput(incomeValue)
+
     inputContainer.classList.remove('hidden')
     savingsContainer.classList.add('hidden')
     income.value=''
@@ -106,21 +149,26 @@ const setUpAccountInfo = (id, value, command) => {
                     </div>`
     accountInfo.appendChild(DIV)
     const all=qs('.all', DIV)
-    window.span=qs('.span', DIV)
+    const display=qs('.span', DIV)
 
     if(command==='savings'){
+        window.savingsDisplay=display
+        window.div1=DIV
         all.classList.add('first')
-        span.classList.add('blue')
+        display.classList.add('blue')
         editLocalStorage(id, value, command)
     }
     if(command==='income'){
+        window.div2=DIV
         all.classList.add('second')
-        span.classList.add('green')
+        display.classList.add('green')
         editLocalStorage(id, value, command)
     }
     if(command==='expenses'){
+        window.div3=DIV
+        window.expensesDisplay=display
         all.classList.add('third')
-        span.classList.add('red')
+        display.classList.add('red')
         editLocalStorage(id, value, command)
     }
 
@@ -130,6 +178,7 @@ const setUpAccountInfo = (id, value, command) => {
         accountInfo.removeChild(DIV)
         localStorage.clear()
         table.classList.add('hidden')
+        window.location.reload()
     })
 }
 // Reveals dropdown menu
@@ -149,12 +198,26 @@ document.addEventListener('click', e => {
 options.addEventListener('click', e => {
     name.value=e.target.textContent
     window.dataID=e.target.dataset.id
+    name.readOnly=true
+})
+// Restricts input to only the ones inside the dropdown menu
+document.addEventListener('mouseup', e => {
+    const clicked=e.target
+    if(clicked===name){
+        name.readOnly=true
+        return
+    }
+    name.readOnly=false
 })
 // Modal open/close functionality
 openModalButton.forEach(button => {
     button.addEventListener('click', () => {
         const modal=qs(button.dataset.modalTarget)
         if(!modal) return
+        if(historyTable.childNodes.length<3){
+            myAlert('No history found!', negativeAlert)
+            return
+        }
         modal.classList.add('on')
         overlay.classList.add('on')
         body.classList.add('disable-scroll')
@@ -177,24 +240,22 @@ overlay.addEventListener('click', () => {
         body.classList.remove('disable-scroll')
     })
 })
-schedule.scheduleJob('*/2 * * * * *', () => {
-    log('hi')
-})
-uploadBtn.addEventListener('click', () => {
-    const id=new Date().getTime().toString()
-    const number=new Date().getMonth()
-    const thisMonth=getMonth(number)
-    const expensesDisplayValue=getLocalStorage('expenses')
-    const incomeDisplayValue=getLocalStorage('income')
-    let saved=parseFloat(incomeDisplayValue[0].values)-parseFloat(expensesDisplayValue[0].values)
-    const spent=expensesDisplayValue[0].values
-    const history=[thisMonth, saved, spent]
-    const row=createElement('row', {dataset: {id: id}})
-    row.innerHTML=`<td>${thisMonth}</td>
-                    <td>${saved}</td>
-                    <td>${spent}</td>`
+// Creates a row in the modal
+const setUpModalRow = (id, values) => {
+    const row=createElement('tr', {dataset: {id: id}})
+    const formattedSpent=formatCurrency(values[2])
+    const formattedSaved=formatCurrency(values[1])
+    row.innerHTML=`<td>${values[0]}</td>
+                    <td id='money-saved'>${formattedSaved}</td>
+                    <td colspan="2" class='money-spent'>${formattedSpent}</td>`
     historyTable.appendChild(row)
-})
+    if(values[1]<0){
+        row.style.backgroundColor='rgba(255,65,54,0.3)'
+    }
+    if(values[1]>0){
+        row.style.backgroundColor='rgba(50,205,50,0.3)'
+    }
+}
 // Sets up creation of row on click of button
 addExpenseBtn.addEventListener('click', () => {
     let nameValue=name.value
@@ -205,7 +266,7 @@ addExpenseBtn.addEventListener('click', () => {
     nameValue=sanitizeInput(nameValue)
     amountValue=sanitizeInput(amountValue)
     dateValue=sanitizeInput(dateValue)
-    // Restrict inputs
+    // Restrict inputs 
     const dateInputValues=new Date(dateValue)
     const currentDay=new Date().getDate()
     const currentMonth=new Date().getMonth()
@@ -214,30 +275,32 @@ addExpenseBtn.addEventListener('click', () => {
     const inputMonth=dateInputValues.getMonth()
     const inputYear=dateInputValues.getFullYear()
     if(!nameValue || !amountValue || !dateValue){
-        alert('Missing Information!')
+        myAlert('Missing Information!', negativeAlert)
         return
     }
     if(currentDay<inputDay && currentMonth<inputMonth && currentYear<inputYear){
-        alert("Date can't be past today!")
+        myAlert("Date can't be past today!", negativeAlert)
         return
     }
     if(currentMonth<inputMonth){
-        alert("Only current month allowed!")
+        myAlert('Only current month allowed!', negativeAlert)
         return
     }
     if(amountValue==='0'){
-        alert("Amount can't be 0!")
+        myAlert("Amount can't be 0!", negativeAlert)
         return
     }
     //retrieve expenses from local storage and update it
+    table.classList.remove('hidden')
     let sumLS=getLocalStorage('expenses')
     sumLS.forEach(item => {
         let sum=item.values
         sum+=parseInt(amountValue)
         const formattedSum=formatCurrency(sum)
-        window.span.textContent=formattedSum
+        window.expensesDisplay.textContent=formattedSum
         editLocalStorage(3, sum, 'expenses')
     })
+    myAlert('Expense Added Succesfully!', positiveAlert)
     //Checks if the value inputed already exists
     let valuesLS=getLocalStorage('list')
     valuesLS=valuesLS.filter(item => {
@@ -296,7 +359,7 @@ const setUpRow = (id, values) => {
             let sum=item.values
             sum-=parseInt(values[1])
             const formattedSum=formatCurrency(sum)
-            window.span.textContent=formattedSum
+            window.expensesDisplay.textContent=formattedSum
             editLocalStorage(3, sum, 'expenses')
         })
         const target=e.currentTarget.parentElement
@@ -308,12 +371,139 @@ const setUpRow = (id, values) => {
         removeFromLocalStorage(targetID, 'list')
     })
 }
-// Displays table if there is at least 2 rows
-showTableBTN.addEventListener('click', () => {
-    if(table.childNodes.length<2){
-        alert('No Expenses Found!')
-        table.classList.add('hidden')
-        return
+// Creates nice animation for buttons
+allBTN.forEach(btn => {
+    btn.onmousemove = e => {
+        const x=e.pageX-btn.offsetLeft
+        const y=e.pageY-btn.offsetTop
+        btn.style.setProperty('--x', x+'px')
+        btn.style.setProperty('--y', y+'px')
     }
-    table.classList.toggle('hidden')
 })
+// Alert functionality function
+let isRunning=false
+const myAlert = (command, type) => {
+    if(isRunning) return
+    isRunning=true
+    type.classList.remove('hide')
+    type.classList.add('show')
+    if(type===negativeAlert){
+        alertMessage.textContent=command
+        closeAlert.addEventListener('click', () => {
+            type.classList.remove('show')
+            type.classList.add('hide')
+        })
+    }
+    if(type===positiveAlert){
+        positiveAlertMessage.textContent=command
+        closePositiveAlert.addEventListener('click', () => {
+            type.classList.remove('show')
+            type.classList.add('hide')
+        })
+    }
+    // Closes alert after 3 seconds
+    // If it is still open
+    sleep(3000).then(() => {
+        type.classList.remove('show')
+        type.classList.add('hide')
+    })
+    // allows for another function call until 
+    sleep(4000).then(() => {
+        isRunning=false
+    })
+}
+// Returns length of each piece of the description
+// also duration of animation to have same typing speed throughout
+let previousDelay=0
+let previousDuration=0
+paragraphs.forEach(paragraph => {
+    const paragraphLength=parseInt(paragraph.textContent.length)
+    paragraph.style.setProperty('--length', paragraphLength)
+    let duration=paragraphLength/10
+    let delay=previousDuration+previousDelay+1
+    paragraph.style.setProperty('--delay', delay+'s')
+    if(duration>=1){
+        paragraph.style.setProperty('--duration', duration+'s')
+    }
+    if(duration<1){
+        duration*=1000
+        paragraph.style.setProperty('--duration', duration+'ms')
+    }
+    if(paragraph.dataset.id==="1"){
+        paragraph.style.setProperty('--delay', 1+'s')
+    }
+    previousDelay=delay
+    previousDuration=duration
+})
+// Adds values to modal and to local storage at start of month
+const uploadInfo = () => {
+    if(!hasOneMonthPassed())return
+    const expensesDisplayValue=getLocalStorage('expenses')
+    const incomeDisplayValue=getLocalStorage('income')
+    if(incomeDisplayValue.length<1 || expensesDisplayValue.length<1) return
+    const id=new Date().getTime().toString()
+    const number=new Date().getMonth()
+
+    const thisMonth=getMonth(number)
+    let saved=parseFloat(incomeDisplayValue[0].values)-parseFloat(expensesDisplayValue[0].values)
+    const spent=expensesDisplayValue[0].values
+    const history=[thisMonth, saved, spent]
+
+    setUpModalRow(id, history)
+    addToLocalStorage(id, history, 'history')
+    let updatedSavings
+    let savingsLS=getLocalStorage('savings')
+    savingsLS.forEach(item => {
+        let previousSavings
+        if(item.values===''){
+            previousSavings=0
+        }
+        else{
+            previousSavings=parseInt(item.values)
+        }
+        let savingsSum=previousSavings
+        if(saved>=0){
+            savingsSum+=saved
+        }
+        if(saved<0){
+            savingsSum-=saved
+        }
+        updatedSavings=savingsSum
+        const formattedSavings=formatCurrency(savingsSum)
+        // window.globalSavings=savingsSum
+        window.savingsDisplay.textContent=formattedSavings
+        editLocalStorage(1, savingsSum, 'savings')
+    })
+    // Removing all items related to the past month
+    localStorage.removeItem('list')
+    localStorage.removeItem('income')
+    localStorage.removeItem('expenses')
+    accountInfo.removeChild(window.div1)
+    accountInfo.removeChild(window.div2)
+    accountInfo.removeChild(window.div3)
+    table.classList.add('hidden')
+    inputContainer.classList.add('hidden')
+    savingsContainer.classList.remove('hidden')
+
+    accountSavings.value=updatedSavings
+    accountSavings.readOnly=true
+    myAlert('History updated succesfully!', positiveAlert)
+}
+// Checks if it is already the next month
+const hasOneMonthPassed = () => {
+    let updateDateLS=getLocalStorage('update')
+    const currentMonth=new Date().getMonth()
+    const nextMonth=updateDateLS[0].values
+    if(currentMonth===nextMonth){
+        editLocalStorage(updateDateLS[0].id, nextMonth+1, 'update')
+        return true
+    }
+    if(currentMonth<nextMonth || currentMonth>nextMonth)return false
+    return false
+}
+// Sets the next month as the update month in local storage
+let temp=getLocalStorage('update')
+const updateMonth=new Date().getMonth()+1
+if(temp.length<1){
+    addToLocalStorage(1, updateMonth, 'update')
+}

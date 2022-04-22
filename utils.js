@@ -93,3 +93,9 @@ const months={
 export const getMonth = (key) => {
     return months[key]
 }
+
+export const sleep = (duration) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, duration)
+    })
+}

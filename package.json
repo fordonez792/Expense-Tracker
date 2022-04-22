@@ -1,0 +1,19 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "node script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fordonez792/Expense-Tracker.git"
+  },
+  "author": "Fernando",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fordonez792/Expense-Tracker/issues"
+  },
+  "homepage": "https://github.com/fordonez792/Expense-Tracker#readme"
+}

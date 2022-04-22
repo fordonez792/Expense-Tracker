@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,15 +10,28 @@
     <script type="module" src="./script.js" defer></script>
     <script src="https://kit.fontawesome.com/75b84b9f46.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
+    <div class="positive-alert">
+        <span><i class="fa-solid fa-circle-check"></i></span>
+        <span class="positive-msg"></span>
+        <span class="close-positive-alert">
+            <span><i class="fa-solid fa-x"></i></span>
+        </span>
+    </div>
+    <div class="alert">
+        <span><i class="fa-solid fa-circle-exclamation"></i></span>
+        <span class="msg"></span>
+        <span class="close-alert">
+            <span><i class="fa-solid fa-x"></i></span>
+        </span>
+    </div>
     <div class="header">
-        <h1>Expense Tracker</h1>
+        <h1 data-text="Expense Tracker">Expense Tracker</h1>
     </div>
     <div class="input" id="savings">
-        <div class="header2">
-            <h2>Current Balance</h2>
-        </div>
-        <div class="shadow flex">
+        <div class="shadow flex" id="first-e">
+            <h4>Input your Current Balance</h4>
             <label class="custom-field">
                 <input type="number" class="input-box" id="account-savings" autocomplete="off" required>
                 <span class="placeholder">Account Savings</span>
@@ -26,47 +40,55 @@
                 <input type="number" class="input-box" id="income" autocomplete="off" required>
                 <span class="placeholder">income</span>
             </label>
-            <div class="add-expense-btn" id="save-btn">Save</div>
+            <div class="add-expense-btn" id="save-btn"><i class="fa-solid fa-floppy-disk"></i><span>Save</span></div>
         </div>
+        <ul class="description-container">
+            <li class="description" id="one" data-id="1">Welcome to your favorite expense tracker</li>
+            <li class="description" id="two" data-id="2">&raquo Use this app to track your monthly expenses.</li>
+            <li class="description" id="three" data-id="3">&raquo History will automatically update at the start of each
+                month.</li>
+            <li class="description" id="four" data-id="4">&raquo Input account savings once, then it will automatically
+                update.</li>
+            <li class="description" id="five" data-id="5">&raquo You can always reset everything by clicking the reset
+                button.</li>
+        </ul>
     </div>
     <div class="input hidden" id="input">
-        <div class="header2">
-            <h2>Add a New Transaction</h2>
-        </div>
-        <div class="shadow flex">
+        <div class="shadow flex" id="information-center">
             <div class="info">
                 <div class="account-info">
                     <h4>Account Balance</h4>
                     <div class="icon-container">
                         <span class="edit" title="Reset"><i class="fa-solid fa-arrow-rotate-right"></i></span>
-                        <span class="upload" title="Save Month"><i class="fa-solid fa-bookmark"></i></span>
-                        <span data-modal-target="#modal"  class="expense-history" title="History"><i class="fa-solid fa-folder" ></i></span>
+                        <span data-modal-target="#modal" class="expense-history" title="History"><i
+                                class="fa-solid fa-folder"></i></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="shadow flex">
-                <label class="dropdown" data-dropdown>
-                    <div class="custom-field">
-                        <input type="text" class="input-box" data-dropdown-btn id="name" autocomplete="off" required>
-                        <span class="placeholder">Name</span>
-                    </div>
-                    <ul class="options">
-                        <li data-id="1"><i class="fa-solid fa-house" data-></i> Rent</li>
-                        <li data-id="2"><i class="fa-solid fa-bolt"></i> Electricity</li>
-                        <li data-id="3"><i class="fa-solid fa-wifi"></i> Internet</li>
-                        <li data-id="4"><i class="fa-solid fa-gas-pump"></i> Fuel</li>
-                        <li data-id="5"><i class="fa-solid fa-bus-simple"></i></i> Public Transportation</li>
-                        <li data-id="6"><i class="fa-solid fa-carrot"></i></i> Groceries</li>
-                        <li data-id="7"><i class="fa-solid fa-utensils"></i> Dining Out</li>
-                        <li data-id="8"><i class="fa-solid fa-cart-shopping"></i> Shopping</li>
-                        <li data-id="9"><i class="fa-solid fa-scissors"></i> Barber</li>
-                        <li data-id="10"><i class="fa-solid fa-music"></i> Entertainment</li>
-                        <li data-id="11"><i class="fa-solid fa-dumbbell"></i> Gym Membership</li>
-                        <li data-id="12"><i class="fa-solid fa-stethoscope"></i> Doctor Visits</li>
-                        <li data-id="13"><i class="fa-solid fa-ellipsis"></i> Other</li>
-                    </ul>
-                </label>
+        <div class="shadow flex" id="input-center">
+            <h4>Add a new transaction</h4>
+            <label class="dropdown" data-dropdown>
+                <div class="custom-field">
+                    <input type="text" class="input-box" data-dropdown-btn id="name" autocomplete="off" required>
+                    <span class="placeholder">Name</span>
+                </div>
+                <ul class="options">
+                    <li data-id="1"><i class="fa-solid fa-house" data-></i> Rent</li>
+                    <li data-id="2"><i class="fa-solid fa-bolt"></i> Electricity</li>
+                    <li data-id="3"><i class="fa-solid fa-wifi"></i> Internet</li>
+                    <li data-id="4"><i class="fa-solid fa-gas-pump"></i> Fuel</li>
+                    <li data-id="5"><i class="fa-solid fa-bus-simple"></i></i> Public Transportation</li>
+                    <li data-id="6"><i class="fa-solid fa-carrot"></i></i> Groceries</li>
+                    <li data-id="7"><i class="fa-solid fa-utensils"></i> Dining Out</li>
+                    <li data-id="8"><i class="fa-solid fa-cart-shopping"></i> Shopping</li>
+                    <li data-id="9"><i class="fa-solid fa-scissors"></i> Barber</li>
+                    <li data-id="10"><i class="fa-solid fa-music"></i> Entertainment</li>
+                    <li data-id="11"><i class="fa-solid fa-dumbbell"></i> Gym Membership</li>
+                    <li data-id="12"><i class="fa-solid fa-stethoscope"></i> Doctor Visits</li>
+                    <li data-id="13"><i class="fa-solid fa-ellipsis"></i> Other</li>
+                </ul>
+            </label>
             <label class="custom-field">
                 <input type="number" class="input-box" id="amount" autocomplete="off" required>
                 <span class="placeholder">Amount</span>
@@ -75,23 +97,48 @@
                 <input type="date" class="input-box" id="date" autocomplete="off" required>
                 <span class="placeholder">Date</span>
             </label>
-            <div class="btn">
-                <div class="add-expense-btn" id="add-expense-btn">Add Expense</div>
-                <div class="add-expense-btn" id="show-table">Show Expenses</div>
+            <div class="add-expense-btn" id="add-expense-btn">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Expense</span>
             </div>
         </div>
+        <div class="output-table"></div>
     </div>
     <div class="modal" id="modal">
         <table class="display-table">
-            <tr>
+            <tr class="style-row">
                 <th>Month</th>
                 <th>Saved</th>
                 <th>Spent</th>
-                <th data-close-btn><img class="close-modal" src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-delete-ui-dreamstale-lineal-dreamstale-2.png" /></th>
+                <th data-close-btn><img class="close-modal"
+                        src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-delete-ui-dreamstale-lineal-dreamstale-2.png" />
+                </th>
             </tr>
         </table>
     </div>
     <div id="overlay"></div>
-    <div class="output-table"></div>
+    <footer>
+        <h2>Expense Tracker</h2>
+        <div class="social-icons">
+            <div class="social-item">
+                <a target="_blank" href="https://www.facebook.com/fernando.ordonez.180/"><img
+                        src="https://img.icons8.com/fluency/48/000000/facebook-new.png" /></a>
+            </div>
+            <div class="social-item">
+                <a target="_blank" href="https://github.com/fordonez792"><img
+                        src="https://img.icons8.com/color/48/000000/git.png" /></a>
+            </div>
+            <div class="social-item">
+                <a target="_blank" href="https://www.instagram.com/fordonez792/?hl=en"><img
+                        src="https://img.icons8.com/fluency/48/000000/instagram-new.png" /></a>
+            </div>
+            <div class="social-item">
+                <a target="_blank" href="https://wa.me/905488983"><img
+                        src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" /></a>
+            </div>
+        </div>
+        <p>Copyright &copy; 2022 <span>Fernando</span>. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>
