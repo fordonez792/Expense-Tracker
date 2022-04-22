@@ -41,6 +41,29 @@ table.innerHTML=`<tr>
                     <th></th>
                 </tr>`
 
+                // Returns length of each piece of the description
+// also duration of animation to have same typing speed throughout
+let previousDelay=0
+let previousDuration=0
+paragraphs.forEach(paragraph => {
+    const paragraphLength=parseInt(paragraph.textContent.length)
+    paragraph.style.setProperty('--length', paragraphLength)
+    let duration=paragraphLength/10
+    let delay=previousDuration+previousDelay+1
+    paragraph.style.setProperty('--delay', delay+'s')
+    if(duration>=1){
+        paragraph.style.setProperty('--duration', duration+'s')
+    }
+    if(duration<1){
+        duration*=1000
+        paragraph.style.setProperty('--duration', duration+'ms')
+    }
+    if(paragraph.dataset.id==="1"){
+        paragraph.style.setProperty('--delay', 1+'s')
+    }
+    previousDelay=delay
+    previousDuration=duration
+})
 // Retrieve all information inside LocalStorage API
 window.addEventListener('DOMContentLoaded', () => {
     let items=getLocalStorage('list')
@@ -412,29 +435,6 @@ const myAlert = (command, type) => {
         isRunning=false
     })
 }
-// Returns length of each piece of the description
-// also duration of animation to have same typing speed throughout
-let previousDelay=0
-let previousDuration=0
-paragraphs.forEach(paragraph => {
-    const paragraphLength=parseInt(paragraph.textContent.length)
-    paragraph.style.setProperty('--length', paragraphLength)
-    let duration=paragraphLength/10
-    let delay=previousDuration+previousDelay+1
-    paragraph.style.setProperty('--delay', delay+'s')
-    if(duration>=1){
-        paragraph.style.setProperty('--duration', duration+'s')
-    }
-    if(duration<1){
-        duration*=1000
-        paragraph.style.setProperty('--duration', duration+'ms')
-    }
-    if(paragraph.dataset.id==="1"){
-        paragraph.style.setProperty('--delay', 1+'s')
-    }
-    previousDelay=delay
-    previousDuration=duration
-})
 // Adds values to modal and to local storage at start of month
 const uploadInfo = () => {
     if(!hasOneMonthPassed())return
