@@ -32,7 +32,7 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   position: relative;
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: #222;
   text-transform: uppercase;
 }
@@ -353,8 +353,8 @@ body {
     linear-gradient(90deg, #ccc, #ccc) left bottom/100% 2px no-repeat,
     linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
   transition: background-size 0.3s ease;
-  width: 275px;
-  height: 14px;
+  width: 250px;
+  height: 12px;
   padding: 15px;
   font-size: 0.8rem;
 }
@@ -630,7 +630,7 @@ th {
   -webkit-box-shadow: 0 0 3px #ccc;
   box-shadow: 0 0 3px #ccc;
   background-color: white;
-  width: 400px;
+  width: 350px;
   padding: 20px;
   margin: 0.7rem;
   margin-bottom: 10px;
@@ -815,7 +815,7 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: 80px;
   background-color: #222;
   color: #f9f9f9;
   text-align: center;
@@ -827,7 +827,7 @@ footer h2 {
   padding-bottom: 0;
   width: max-content;
   transition: 0.3s ease color;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-top: 0;
   padding: 0;
 }
@@ -845,7 +845,7 @@ footer .social-icons {
 
 footer .social-icons .social-item {
   margin: 5px;
-  width: 30px;
+  width: 25px;
   filter: grayscale(1);
   transition: 0.3s ease filter;
 }
@@ -859,7 +859,7 @@ footer .social-icons .social-item img {
 
 footer p {
   padding-bottom: 5px;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
 }
 
 footer p span {
@@ -880,6 +880,15 @@ footer p span:hover {
 
   .description-container {
     margin-top: 10px;
+  }
+
+  .shadow{
+    width: 400px;
+  }
+
+  .input-box{
+    width: 275px;
+    height: 14px;
   }
 
   .description-container li {
