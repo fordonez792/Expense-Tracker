@@ -486,13 +486,13 @@ tr:first-child {
 
 td,
 th {
-  height: max-content;
-  padding: 10px;
+  height: 15px;
+  padding: 8px;
   font-size: 1rem;
   width: auto;
 }
 td{
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 th {
@@ -504,16 +504,14 @@ th {
   margin: 0;
   object-fit: cover;
   transition: 0.3s ease all;
-  width: 30px;
-  height: 30px;
+  width: 20px;
 }
 
 .delete-btn img {
   display: block;
   margin: auto;
   transition: 0.3s ease all;
-  width: 20px;
-  height: 20px;
+  width: 16px;
 }
 
 .delete-btn:hover {
@@ -918,6 +916,16 @@ footer p span:hover {
     font-size: 1rem;
   }
 
+  .delete-btn{
+    width: 30px;
+    height: 30px;
+  }
+
+  .delete-btn img{
+    width: 20px;
+    height: 20px;
+  }
+
   .shadow{
     width: 400px;
   }
@@ -966,5 +974,4 @@ footer p span:hover {
     font-size: 0.9rem;
   }
 }
-
 /* End of Media Queries */
