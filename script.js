@@ -48,15 +48,12 @@ let previousDuration=0
 paragraphs.forEach(paragraph => {
     const paragraphLength=parseInt(paragraph.textContent.length)
     paragraph.style.setProperty('--length', paragraphLength)
+    log(paragraphLength)
     let duration=paragraphLength/10
     let delay=previousDuration+previousDelay+1
     paragraph.style.setProperty('--delay', delay+'s')
     if(duration>=1){
         paragraph.style.setProperty('--duration', duration+'s')
-    }
-    if(duration<1){
-        duration*=1000
-        paragraph.style.setProperty('--duration', duration+'ms')
     }
     if(paragraph.dataset.id==="1"){
         paragraph.style.setProperty('--delay', 1+'s')
