@@ -353,7 +353,7 @@ body {
     linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
   transition: background-size 0.3s ease;
   width: 230px;
-  height: 16px;
+  height: 17px;
   padding: 12px;
   font-size: 0.8rem;
 }
@@ -372,6 +372,9 @@ input[type="date"]:focus::-webkit-datetime-edit {
   color: black !important;
 }
 
+#date {
+  width: 230px;
+}
 /* end of fancy styling for input boxes */
 /* Styling for all buttons */
 .add-expense-btn::before {
