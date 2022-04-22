@@ -67,109 +67,108 @@ body {
 }
 
 /* End of Account Savings and Income Box */
-  /* Description */
-  .description-container {
-    margin-top: 0;
+/* Description */
+.description-container {
+  margin-top: 0;
+}
+  
+@keyframes blink {
+  0% {
+    width: 0.125em;
   }
   
-  @keyframes blink {
-    0% {
-      width: 0.125em;
-    }
-  
-    to {
-      background-color: transparent;
-    }
+  to {
+    background-color: transparent;
   }
+}
   
-  @keyframes type {
-    to {
-      left: 100%;
-    }
+@keyframes type {
+  to {
+    left: 100%;
   }
+}
   
-  .input .description {
-    font-family: 'Source Code Pro', monospace;
-    position: relative;
-    width: auto;
-    list-style: none;
-    font-size: 1rem;
-  }
+.input .description {
+  font-family: 'Source Code Pro', monospace;
+  position: relative;
+  width: auto;
+  list-style: none;
+  font-size: 1rem;
+}
   
-  #one {
-    text-transform: capitalize;
-    text-align: center;
-    margin: 5px;
-    margin-bottom: 10px;
-  }
+#one {
+  text-transform: capitalize;
+  text-align: center;
+  margin: 5px;
+  margin-bottom: 10px;
+}
   
-  #six::after,
-  #five::after,
-  #two::after,
-  #three::after,
-  #four::after {
-    animation:
-      type var(--duration) steps(var(--length)) var(--delay) forwards,
-      blink 750ms steps(var(--length)) var(--delay) infinite;
-  }
+#six::after,
+#five::after,
+#two::after,
+#three::after,
+#four::after {
+  animation:
+    type var(--duration) steps(var(--length)) var(--delay) forwards,
+    blink 750ms steps(var(--length)) var(--delay) infinite;
+}
   
-  #six::before,
-  #five::before,
-  #one::before,
-  #two::before,
-  #three::before,
-  #four::before {
-    background-color: #f9f9f9;
-    animation:
-      type var(--duration) steps(var(--length)) var(--delay) forwards;
-  }
+#six::before,
+#five::before,
+#one::before,
+#two::before,
+#three::before,
+#four::before {
+  background-color: #f9f9f9;
+  animation:
+    type var(--duration) steps(var(--length)) var(--delay) forwards;
+}
   
-  .input .description::before,
-  .input .description::after {
-    content: '';
-    right: 0;
-    left: 0;
-    bottom: 0;
-    top: 0;
-    position: absolute;
-  }
+.input .description::before,
+.input .description::after {
+  content: '';
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  position: absolute;}
   
-  .input .description::after {
-    width: 0;
-    background-color: #222;
-    animation:
-      type var(--duration) steps(var(--length)) 1s forwards,
-      blink 750ms steps(var(--length)) infinite;
-  }
+.input .description::after {
+  width: 0;
+  background-color: #222;
+  animation:
+    type var(--duration) steps(var(--length)) 1s forwards,
+    blink 750ms steps(var(--length)) infinite;
+}
   
-  .description-container li {
-    margin: 5px;
-  }
+.description-container li {
+  margin: 5px;
+}
   
-  .description-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: auto;
-    margin: 0 7px;
-    margin-top: 20px;
-  }
+.description-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: auto;
+  margin: 0 7px;
+  margin-top: 20px;
+}
   
-  .description-container li {
-    align-self: flex-start;
-    margin: 5px;
-    margin-left: 10px;
-    white-space: normal;
-    font-size: 1rem;
-  }
+.description-container li {
+  align-self: flex-start;
+  margin: 5px;
+  margin-left: 10px;
+  white-space: normal;
+  font-size: 1rem;
+}
   
-  .description-container li:first-child {
-    align-self: center;
-    font-weight: 700;
-  }
+.description-container li:first-child {
+  align-self: center;
+  font-weight: 700;
+}
   
-  /* End of Description */
+/* End of Description */
 /* Modal */
 .modal {
   display: flex;
@@ -884,6 +883,28 @@ footer p span:hover {
 /* End of Footer */
 
 /* Media Queries */
+@media only screen and (aspect-ratio: 16/10){
+  .header h1{
+    font-size: 3.5rem;
+  }
+  .description-container li {
+    font-size: 0.8rem;
+  }
+  footer{
+    height: 100px;
+  }
+  footer h2{
+    font-size: 1.1rem;
+
+  }
+  footer .social-icons .social-item{
+    margin: 5px;
+    width: 30px;
+  }
+  footer p{
+    font-size: 0.8rem;
+  }
+}
 @media only screen and (min-width: 1200px) {
   .header h1 {
     font-size: 4rem;
