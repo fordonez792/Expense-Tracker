@@ -32,7 +32,7 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   position: relative;
-  font-size: 3rem;
+  font-size: 2.7rem;
   color: #222;
   text-transform: uppercase;
 }
@@ -58,7 +58,7 @@ body {
   padding-left: 0;
   margin-bottom: 5px;
   color: #aaa;
-  font-size: 1rem;
+  font-size: 0.9rem;
   letter-spacing: 0.2rem;
   font-weight: 400;
   white-space: nowrap;
@@ -353,8 +353,8 @@ body {
     linear-gradient(90deg, #ccc, #ccc) left bottom/100% 2px no-repeat,
     linear-gradient(90deg, #fafafa, #fafafa) left bottom/100% no-repeat;
   transition: background-size 0.3s ease;
-  width: 250px;
-  height: 12px;
+  width: 230px;
+  height: 10px;
   padding: 15px;
   font-size: 0.8rem;
 }
@@ -406,8 +406,8 @@ input[type="date"]:focus::-webkit-datetime-edit {
   cursor: pointer;
   z-index: 1;
   transition: 0.5s ease color;
-  padding: 10px 8px;
-  width: 160px;
+  padding: 8px 6px;
+  width: 140px;
 }
 .add-expense-btn span {
   font-size: 0.9rem;
@@ -630,7 +630,7 @@ th {
   -webkit-box-shadow: 0 0 3px #ccc;
   box-shadow: 0 0 3px #ccc;
   background-color: white;
-  width: 350px;
+  width: 330px;
   padding: 20px;
   margin: 0.7rem;
   margin-bottom: 10px;
@@ -892,6 +892,10 @@ footer p span:hover {
   }
 
   .description-container li {
+    font-size: 1rem;
+  }
+
+  .input .shadow h4{
     font-size: 1rem;
   }
 
