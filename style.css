@@ -869,23 +869,143 @@ footer p span {
 footer p span:hover {
   color: #ff4136;
 }
-
 /* End of Footer */
 
 /* Media Queries */
+@media only screen and (min-width: 768px){
+  /* Header */
+  .header h1{
+    font-size: 3.3rem;
+  }
+  /* End of Header */
+
+  /* Description */
+  .description-container {
+    margin-top: 5px;
+  }
+
+  .description-container li{
+    font-size: 0.8rem;
+  }
+  /* End of Description */
+
+  /* Alerts */
+  .alert,
+  .positive-alert {
+    min-width: 390px;
+    padding: 18px 36px;
+  }
+  
+  .positive-alert .fa-circle-check,
+  .alert .fa-circle-exclamation {
+    font-size: 17px;
+  }
+  
+  .positive-alert .positive-msg,
+  .alert .msg {
+    font-size: 0.8rem;
+    padding: 0 18px;
+  }
+  
+  .alert .close-alert,
+  .positive-alert .close-positive-alert {
+    padding: 15px 14px;
+  }
+  
+  .fa-x {
+    font-size: 18px;
+  }
+  /* End of Alerts */
+
+  /* Shadow boxes */
+  .shadow {
+    width: 370px;
+  }
+  
+  .input-box {
+    width: 250px;
+    padding: 14px;
+  }
+  
+  .input .shadow h4 {
+    font-size: 0.9rem;
+  }
+  
+  .info {
+    width: 280px;
+  }
+  /* End of Shadow boxes */
+
+  /* All Buttons */
+  #add-expense-btn i{
+    font-size: 14px;
+  }
+  /* End of All Buttons */
+
+  /* Modal */
+  .modal table {
+    width: 700px;
+  }
+  /* End of Modal */
+
+  /* Expense Table */
+  table {
+    width: 80vw;
+  }
+    
+  td {
+    font-size: 1rem;
+  }
+    
+  .delete-btn {
+    width: 30px;
+    height: 30px;
+  }
+    
+  .delete-btn img {
+    width: 20px;
+    height: 20px;
+  }
+    /* End of Expense Table */
+
+  /* Footer */
+  footer {
+    height: 100px;
+  }
+  
+  footer h2 {
+    font-size: 1.1rem;
+  }
+  
+  footer .social-icons .social-item {
+    width: 30px;
+    margin: 7px;
+  }
+  
+  footer p {
+    font-size: 0.7rem;
+  }
+  /* End of Footer */
+}
+
 @media only screen and (min-width: 1200px) and (min-height: 750px){
-  .header{
+  /* Header */
+  .header {
     margin-bottom: 5px;
   }
 
   .header h1 {
     font-size: 4rem;
   }
+  /* End of Header */
 
-  .description-container {
-    margin-top: 10px;
+  /* Description */
+  .description-container li {
+    font-size: 1rem;
   }
+  /* End of Description */
 
+  /* Alerts */
   .alert,
   .positive-alert{
     min-width: 420px;
@@ -911,50 +1031,28 @@ footer p span:hover {
   .fa-x{
     font-size: 20px;
   }
+  /* End of Alerts */
 
-  table{
-    width: 80vw;
-  }
-
-  td{
-    font-size: 1rem;
-  }
-
-  .delete-btn{
-    width: 30px;
-    height: 30px;
-  }
-
-  .delete-btn img{
-    width: 20px;
-    height: 20px;
-  }
-
+  /* Shadow boxes */
   .shadow{
     width: 400px;
   }
 
-  .info{
-    width: 290px;
-  }
-
-  .input-box{
+  .input-box {
     width: 275px;
     padding: 16px;
   }
-
-  .description-container li {
+  
+  .input .shadow h4 {
     font-size: 1rem;
   }
 
-  .input .shadow h4{
-    font-size: 1rem;
+  .info {
+    width: 290px;
   }
+  /* End of Shadow boxes */
 
-  .modal table {
-    width: 700px;
-  }
-
+  /* Footer */
   footer {
     height: 120px;
   }
@@ -977,5 +1075,6 @@ footer p span:hover {
   footer p {
     font-size: 0.9rem;
   }
+  /* End of Footer */
 }
 /* End of Media Queries */
