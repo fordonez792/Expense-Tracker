@@ -34,7 +34,7 @@ const alertMessage=qs('.msg')
 // Creates table but hides it as there is no data still
 const table=createElement('table', {class: 'hidden'})
 tableContainer.appendChild(table)
-table.innerHTML=`<tr>
+table.innerHTML=`<tr data-id="-1">
                     <th>Name</th>
                     <th>Amount</th>
                     <th>Date</th>
@@ -48,7 +48,6 @@ let previousDuration=0
 paragraphs.forEach(paragraph => {
     const paragraphLength=parseInt(paragraph.textContent.length)
     paragraph.style.setProperty('--length', paragraphLength)
-    log(paragraphLength)
     let duration=paragraphLength/10
     let delay=previousDuration+previousDelay+1
     paragraph.style.setProperty('--delay', delay+'s')
@@ -344,7 +343,15 @@ addExpenseBtn.addEventListener('click', () => {
                 window.dateCol.textContent=item.values[2]
             }
             const formattedSum=formatCurrency(updateSum)
-            window.amountCol.textContent=formattedSum
+            // Select correct row to update the amount col
+            let listNodes=window.amountCol.parentElement.parentElement.children
+            // Create array to use filter method
+            listNodes=Object.entries(listNodes)
+            const nodeToUpdate=listNodes.filter(node => {
+                if(node[1].dataset.id===window.dataID) return node
+            })
+            const amountChild=qs('#amount-col', nodeToUpdate[0][1])
+            amountChild.textContent=formattedSum
             editLocalStorage(window.dataID, updatedValues, 'list')
             name.value=''
             amount.value=''
