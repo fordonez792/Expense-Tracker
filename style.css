@@ -467,7 +467,7 @@ input[type="date"]:focus::-webkit-datetime-edit {
 }
 
 table {
-  width: 92vw;
+  width: 94vw;
   text-align: left;
   border-collapse: collapse;
   border-spacing: 0;
