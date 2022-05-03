@@ -113,7 +113,6 @@ window.addEventListener('DOMContentLoaded', () => {
             setUpModalRow(item.id, item.values)
         })
     }
-
     if(income.length>=1){
         setInterval(uploadInfo, 1000)
     }
@@ -441,7 +440,7 @@ const uploadInfo = () => {
     const incomeDisplayValue=getLocalStorage('income')
     if(incomeDisplayValue.length<1 || expensesDisplayValue.length<1) return
     const id=new Date().getTime().toString()
-    const number=new Date().getMonth()
+    const number=new Date().getMonth()-1
 
     const thisMonth=getMonth(number)
     let saved=parseFloat(incomeDisplayValue[0].values)-parseFloat(expensesDisplayValue[0].values)
