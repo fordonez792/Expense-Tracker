@@ -114,14 +114,9 @@ window.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    const dayInMS=1000 * 60 * 60 * 24
     if(income.length>=1){
-        setInterval(uploadInfo, dayInMS)
+        setInterval(uploadInfo, 1000)
     }
-    // Reloading every 6 hours ensures everything in app works as expected
-    setInterval(() => {
-        window.location.reload()
-    }, dayInMS/4)
 })
 // Mainly calls functions to set up the account info section and to add all values into local storage if they dont exist already
 saveBTN.addEventListener('click', () => {
