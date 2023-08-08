@@ -1,4 +1,8 @@
 # Expense-Tracker
-This is definitely the perfect Expense Tracker
 
-With the use of HTML, CSS and JAVASCRIPT, I have created a great web application that people can use to track their expenses throughout many months and even years. Just input your current savings amount and your income amount for the current month, click save. You can easily track each expense on this website with a table displaying each different expense with their respective date and amount. If the expense is already found inside the table, the app will add the new expense to the old one and display the new number with the new date in the table. Also offering automated updates for every month, allowing for the amount spent and saved to be kept for future reference will also updating your current savings with the new information. Just input your new income for the particular month and you are ready to go. If the reset button is clicked, everything in the app will be reset including history and all expenses, so watch out where you click.
+With the use of HTML, CSS and JAVASCRIPT, I created a web application to track monthly expenses. It takes current savings amount and monthly income. It will track and save all expenses, and show the user their total expenses throughout the month. At the end of the month it will reset, saving the total amount saved and spent for future reference.
+
+# What I Learned
+
+- HTML and CSS to create a visually appealing user interface.
+- JavaScript to give the website functionality.
