@@ -6,3 +6,4 @@ With the use of HTML, CSS and JAVASCRIPT, I created a web application to track m
 
 - HTML and CSS to create a visually appealing user interface.
 - JavaScript to give the website functionality.
+- Local Storage to store data
